@@ -42,6 +42,9 @@ names(mean_std_set)<-gsub("fBody", "Frequency.Body.", names(mean_std_set));
 names(mean_std_set)<-gsub("fBody", "Frequency.Body.", names(mean_std_set));
 names(mean_std_set)<-gsub("Acc", "Accelerometer", names(mean_std_set));
 names(mean_std_set)<-gsub("Gyro", "Gyroscope", names(mean_std_set));
+names(mean_std_set)<-gsub("Body.Body", "Body", names(mean_std_set));
+names(mean_std_set)<-gsub("()", "", names(mean_std_set));
+names(mean_std_set)<-gsub("-", ".", names(mean_std_set));
 names(mean_std_set)[1]<-"Subject";
 names(mean_std_set)[2]<-"Activity";
 
@@ -52,7 +55,4 @@ melt_mean_std_set <-melt(mean_std_set, id=c("Subject", "Activity"), measure.vars
 tidy<-dcast(melt_mean_std_set, Subject + Activity ~ variable, mean);
 names(tidy)<-gsub("Time", "mean.Time", names(tidy));
 names(tidy)<-gsub("Frequency", "mean.Frequency", names(tidy));
-names(tidy)<-gsub("Body.Body", "Body", names(tidy));
-names(tidy)<-gsub("()", "", names(tidy));
-names(tidy)<-gsub("-", ".", names(tidy));
 write.table(tidy,file="tidy.txt");
