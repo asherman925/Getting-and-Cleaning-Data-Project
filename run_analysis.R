@@ -50,4 +50,5 @@ names(mean_std_set)[2]<-"Activity";
 var_cols<-names(mean_std_set)[c(3:68)];
 melt_mean_std_set <-melt(mean_std_set, id=c("Subject", "Activity"), measure.vars=var_cols);
 tidy<-dcast(melt_mean_std_set, Subject + Activity ~ variable, mean);
+names(tidy)<-gsub("Time", "mean.Time", names(tidy));
 write.table(tidy,file="tidy.txt");
